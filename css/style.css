@@ -81,14 +81,8 @@ body {
 .pipe {
     position: absolute;
     bottom: 0;
-    width: 40px;
-    right: -40px;
-}
-
-.pipe[src="trofeuPipe.jpg"] {
-    width: 250px;
-    height: -250px;
-    object-fit: contain;
+    width: 75px;
+    right: -75px;
 }
 
 .mario {

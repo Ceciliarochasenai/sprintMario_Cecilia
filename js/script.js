@@ -286,15 +286,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Define o obstáculo de acordo com o personagem
     if (characterFile === 'jaoMp.gif') {
-        currentObstacle = 'florPipe.jpg';
+        currentObstacle = 'florPipe.png';
         gameBoard.classList.add('theme-jaomp');
 
     } else if (characterFile === 'jaoSuper.gif') {
-        currentObstacle = 'fogueiraPipe.jpg';
+        currentObstacle = 'fogueiraPipe.png';
         gameBoard.classList.add('theme-jaosuper');
 
     } else if (characterFile === 'pedroTofanni.gif') {
-        currentObstacle = 'trofeuPipe.jpg';
+        currentObstacle = 'trofeuPipe.png';
         gameBoard.classList.add('theme-pedro');
 
     } else {
