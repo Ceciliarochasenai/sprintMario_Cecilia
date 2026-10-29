@@ -123,35 +123,62 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function triggerGameOver(pipePosition, marioPosition) {
-        isPlaying = false;
-        clearInterval(gameLoop);
-        clearInterval(scoreLoop);
+     if (!isPlaying) return;
 
-        
-        gameBoard.classList.remove('running');
+    // Para o jogo
+    isPlaying = false;
+    clearInterval(gameLoop);
+    clearInterval(scoreLoop);
 
-        
-        pipe.style.animation = 'none';
-        pipe.style.left = `${pipePosition}px`;
+    gameBoard.classList.remove('running');
 
-        // Congela o Mario na altura exata e muda para a imagem de Game Over
-        mario.style.animation = 'none';
-        mario.style.bottom = `${marioPosition}px`;
-        mario.src = 'assets/game-over.png';
-        mario.style.width = '75px';
-        mario.style.marginLeft = '50px';
+    // Para todas as animações do personagem e do obstáculo
+    mario.style.animation = 'none';
+    mario.classList.remove('jump');
 
-        // Atualiza modal de Game Over
-        finalScoreValue.textContent = score;
-        saveStatusMsg.textContent = 'Salvando pontuação no banco...';
-        saveStatusMsg.style.color = '#ffcc00';
+    pipe.style.animation = 'none';
+    pipe.style.left = `${pipePosition}px`;
 
-        // Abre modal de Game Over
-        gameoverModal.classList.add('active');
+    // Congela o obstáculo
+    pipe.style.animation = 'none';
+    pipe.style.left = `${pipePosition}px`;
 
-        // Salva a pontuação no banco MySQL via PHP
-        saveScore(currentPlayer, score);
-    }
+    // Mostra a imagem de derrota
+    mario.style.animation = 'none';
+    mario.style.bottom = `${marioPosition}px`;
+
+    // Escolhe a imagem de derrota de cada personagem
+    const imagensDeDerrota = {
+    'roberto.gif': 'roberto-gameover.png',
+    'daniel.gif': 'daniel-gameover.png',
+    'pedroTofanni.gif': 'pedro-gameover.png',
+    'jaoMp.gif': 'jaoMp-gameover.png',
+    'jaoSuper.gif': 'jaoSuper-gameover.png'
+};
+
+    // Troca para a imagem de derrota correspondente
+    mario.src = 'assets/' + (
+    imagensDeDerrota[currentCharacter] || 'game-over.png'
+);
+    mario.style.width = '75px';
+    mario.style.marginLeft = '50px';
+
+    // Atualiza a pontuação
+    finalScoreValue.textContent = score;
+    saveStatusMsg.textContent = 'Salvando pontuação no banco...';
+    saveStatusMsg.style.color = '#ffcc00';
+
+    // Fecha as outras telas
+    startModal.classList.remove('active');
+    characterModal.classList.remove('active');
+
+    // Mostra a tela de Game Over
+    gameoverModal.style.display = 'flex';
+    gameoverModal.classList.add('active');
+
+    // Salva a pontuação
+    saveScore(currentPlayer, score);
+}
 
 
     function saveScore(playerName, finalScore) {
