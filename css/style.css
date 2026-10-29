@@ -123,7 +123,7 @@ body {
 }
 
 .jump {
-    animation: jump-animation 500ms ease-out;
+    animation: jump-animation 700ms ease-out;
 }
 
 @keyframes pipe-animation {
@@ -197,10 +197,10 @@ body {
 
 .game-title {
     font-family: 'Press Start 2P', cursive;
-    color: #8e8c21;
+    color: #fffc67;
     font-size: 20px;
     line-height: 1.5;
-    text-shadow: 3px 3px #34590f, 6px 6px #10120d;
+    text-shadow: 3px 3px #304917, 6px 6px #10120d;
     margin-bottom: 12px;
 }
 
@@ -269,20 +269,20 @@ body {
 }
 
 .btn-primary {
-    background: linear-gradient(180deg, #e52521 0%, #b81410 100%);
+    background: linear-gradient(180deg, #fffb0f 0%, #b89410 100%);
     color: #ffffff;
     border-bottom: 4px solid #7a0b08;
 }
 
 .btn-primary:hover {
-    background: linear-gradient(180deg, #ff3833 0%, #cf1915 100%);
+    background: linear-gradient(180deg, #6c7811 0%, #989111 100%);
     transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(229, 37, 33, 0.4);
+    box-shadow: 0 6px 15px rgba(123, 123, 15, 0.4);
 }
 
 .btn-primary:active {
     transform: translateY(2px);
-    border-bottom: 2px solid #7a0b08;
+    border-bottom: 2px solid #ffef08;
 }
 
 .btn-secondary {
@@ -332,7 +332,7 @@ body {
 
 .gameover-title {
     font-family: 'Press Start 2P', cursive;
-    color: #e52521;
+    color: #d1ca0a;
     font-size: 26px;
     text-shadow: 3px 3px #000;
     margin-bottom: 10px;
@@ -551,4 +551,38 @@ body {
     width: 80px;
     height: 90px;
     object-fit: contain;
+}
+
+.star {
+    position: absolute;
+    bottom: 200px;      /* alto: só dá para pegar pulando */
+    width: 50px;
+    right: -60px;       /* começa escondida, fora da tela */
+    z-index: 5;
+}
+
+.game-board.running .star {
+    animation: star-animation 2.3s infinite linear;
+}
+
+@keyframes star-animation {
+    from { right: -60px; }
+    to   { right: 100%; }
+}
+
+/* Tamanho dos obstáculos de cada personagem */
+
+/* florPipe.png (Jão MP) */
+.game-board.theme-jaomp .pipe {
+    width: 110px;
+}
+
+/* fogueiraPipe.png (Jão Super) */
+.game-board.theme-jaosuper .pipe {
+    width: 170px;
+}
+
+/* trofeuPipe.png (Pedro) */
+.game-board.theme-pedro .pipe {
+    width: 110px;
 }

@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Elementos do Jogo
     const mario = document.querySelector('.mario');
     const pipe = document.querySelector('.pipe');
+    const star = document.querySelector('.star');
     const gameBoard = document.getElementById('game-board');
     const hudPlayerName = document.getElementById('hud-player-name');
     const scoreDisplay = document.getElementById('score-display');
@@ -37,6 +38,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let isPlaying = false;
     let gameLoop = null;
     let scoreLoop = null;
+    star.addEventListener('animationiteration', () => {
+    star.style.visibility = 'visible';
+   });
 
     // Recupera último nome utilizado caso exista
     const savedName = localStorage.getItem('mario_jump_player');
@@ -77,6 +81,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     function resetElements() {
+        // Reseta estrela
+        star.style.visibility = 'visible';
+
         // Reseta cano
         pipe.style.animation = '';
         pipe.style.left = '';
@@ -110,17 +117,39 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 500);
     }
 
-    function checkCollision() {
-        if (!isPlaying) return;
+   function checkCollision() {
+    if (!isPlaying) return;
 
-        const pipePosition = pipe.offsetLeft;
-        const marioPosition = +window.getComputedStyle(mario).bottom.replace('px', '');
+    const pipePosition = pipe.offsetLeft;
+    const marioPosition = +window.getComputedStyle(mario).bottom.replace('px', '');
 
-        // Tolerância de colisão: quando o cano está na faixa de contato com o Mario
-        if (pipePosition <= 120 && pipePosition > 0 && marioPosition < 80) {
-            triggerGameOver(pipePosition, marioPosition);
-        }
+    if (pipePosition <= 120 && pipePosition > 0 && marioPosition < 80) {
+        triggerGameOver(pipePosition, marioPosition);
     }
+
+    checkStar();   // <-- linha nova
+   }
+
+    function checkStar() {
+    if (!isPlaying) return;
+    if (star.style.visibility === 'hidden') return;
+
+    const m = mario.getBoundingClientRect();
+    const s = star.getBoundingClientRect();
+
+    // As duas caixas estão se encostando?
+    const encostou =
+        s.left < m.right &&
+        s.right > m.left &&
+        s.top < m.bottom &&
+        s.bottom > m.top;
+
+    if (encostou) {
+        star.style.visibility = 'hidden';   // a estrela some
+        score += 10;                        // +10 pontos
+        scoreDisplay.textContent = score;
+    }
+   }
 
     function triggerGameOver(pipePosition, marioPosition) {
      if (!isPlaying) return;
@@ -173,7 +202,6 @@ document.addEventListener('DOMContentLoaded', () => {
     characterModal.classList.remove('active');
 
     // Mostra a tela de Game Over
-    gameoverModal.style.display = 'flex';
     gameoverModal.classList.add('active');
 
     // Salva a pontuação

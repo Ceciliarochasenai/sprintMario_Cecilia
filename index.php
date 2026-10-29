@@ -44,6 +44,7 @@ try {
 
         
         <main class="game-board" id="game-board">
+            <img src="assets/starCoin.png" class="star" alt="Estrela">
             <img src="assets/clouds.png" class="clouds" alt="Nuvens">
             <img src="assets/mario.gif" class="mario" alt="Mario">
             <img src="assets/pipe.png" class="pipe" alt="Cano">
@@ -56,7 +57,7 @@ try {
         <div class="modal-card">
             <div class="modal-header">
                 <h1 class="game-title">MARIO JUMP</h1>
-                <p class="game-subtitle">Corra, desvie dos canos e dispute o topo do ranking!</p>
+                <p class="game-subtitle">Corra, desvie dos obstáculos, descubra os segredos e conquiste o topo do pódio!</p>
             </div>
 
             <form class="start-form" id="start-form">
@@ -130,6 +131,8 @@ try {
         <span>Jão Super</span>
     </button>
 
+</div>
+ </div>
 </div>
 
     <!-- 2. TELA DE GAME OVER & RANKING -->
